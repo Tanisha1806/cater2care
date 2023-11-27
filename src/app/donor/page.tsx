@@ -16,6 +16,7 @@ import Typography from "@mui/material/Typography";
 import AddressForm from "../../components/AddressForm";
 import FoodDetailsForm from "../../components/FoodDetailsForm";
 import ConsumerDetailsForm from "../../components/ConsumerDetailsForm";
+import { useRouter } from "next/navigation";
 
 function Copyright() {
   return (
@@ -47,6 +48,7 @@ function getStepContent(step: number) {
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const router = useRouter();
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -68,10 +70,11 @@ export default function Checkout() {
           borderBottom: (t) => `1px solid ${t.palette.divider}`,
         }}
       >
-        <Toolbar>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <Typography variant="h6" color="inherit" noWrap>
             Cater2Care
           </Typography>
+          <Button onClick={() => router.push("/login")}>Logout</Button>
         </Toolbar>
       </AppBar>
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>

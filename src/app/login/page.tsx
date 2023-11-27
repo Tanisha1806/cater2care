@@ -58,7 +58,9 @@ export default function SignIn() {
     // Check if entered credentials match any in the creds object
     const matchedUser = Object.keys(creds).find((userType) => {
       return (
+        // @ts-ignore
         creds[userType].email === enteredEmail &&
+        // @ts-ignore
         creds[userType].password === enteredPassword
       );
     });

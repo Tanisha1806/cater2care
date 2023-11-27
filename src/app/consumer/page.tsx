@@ -46,7 +46,80 @@ function Copyright() {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
+const data = [
+  { name: "Aditya Dubey", date: "2pm pickup" },
+  { name: "Mrutunjay Kinagi", date: "3pm pickup" },
+  // Add more items as needed
+];
+
 export default function StickyFooter() {
+  // const [acceptStatus, setAcceptStatus] = React.useState({});
+  const [acceptStatus, setAcceptStatus] = React.useState(
+    Array(data.length).fill({})
+  );
+  // const [acceptStatusPerm, setAcceptStatusPerm] = React.useState({});
+  // const [actionType, setActionType] = React.useState("");
+
+  const [finalAction, setFinalAction] = React.useState("");
+
+  // const handleAccept = (index) => {
+  //   setFinalAction("accept");
+  //   setAcceptStatus((prevStatus) => ({ ...prevStatus, [index]: "accepted" }));
+  //   // setAcceptStatusPerm((prevStatus) => ({
+  //   //   ...prevStatus,
+  //   //   [index]: "accepted",
+  //   // }));
+  //   // setActionType("accept");
+  //   setTimeout(() => {
+  //     setAcceptStatus((prevStatus) => ({ ...prevStatus, [index]: undefined }));
+  //   }, 5000);
+  // };
+
+  const handleAccept = (index: any) => {
+    setAcceptStatus((prevStatus) => {
+      const newStatus = [...prevStatus];
+      newStatus[index] = { action: "accepted" };
+      return newStatus;
+    });
+
+    // setTimeout(() => {
+    //   setAcceptStatus((prevStatus) => {
+    //     const newStatus = [...prevStatus];
+    //     newStatus[index] = {};
+    //     return newStatus;
+    //   });
+    // }, 5000);
+  };
+
+  // const handleReject = (index) => {
+  //   setFinalAction("reject");
+  //   setAcceptStatus((prevStatus) => ({ ...prevStatus, [index]: "rejected" }));
+  //   // setAcceptStatusPerm((prevStatus) => ({
+  //   //   ...prevStatus,
+  //   //   [index]: "rejected",
+  //   // }));
+  //   // setActionType("reject");
+  //   setTimeout(() => {
+  //     setAcceptStatus((prevStatus) => ({ ...prevStatus, [index]: undefined }));
+  //   }, 5000);
+  // };
+
+  const handleReject = (index: any) => {
+    setAcceptStatus((prevStatus) => {
+      const newStatus = [...prevStatus];
+      newStatus[index] = { action: "rejected" };
+      return newStatus;
+    });
+
+    // setTimeout(() => {
+    //   setAcceptStatus((prevStatus) => {
+    //     const newStatus = [...prevStatus];
+    //     newStatus[index] = {};
+    //     return newStatus;
+    //   });
+    // }, 5000);
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box
@@ -75,56 +148,52 @@ export default function StickyFooter() {
           <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
             <nav aria-label="main mailbox folders">
               <List>
-                <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <PersonIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Aditya Dubey" />
-                    <ListItemText primary="2pm pickup" />
-                    <ListItemButton>Accept</ListItemButton>
-                    <ListItemButton>Reject</ListItemButton>
-                  </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <PersonIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Aditya Dubey" />
-                    <ListItemText primary="2pm pickup" />
+                {data.map((item, index) => (
+                  <ListItem key={index} disablePadding>
                     <ListItemButton
-                      sx={{ color: "white", background: "green" }}
+                      sx={{ display: "flex", justifyContent: "space-between" }}
                     >
-                      Accept
+                      <ListItemIcon>
+                        <PersonIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={item.name} />
+                      <ListItemText primary={item.date} />
+                      {acceptStatus[index]?.action === "accepted" && (
+                        <Typography variant="body2" color="success">
+                          Accepted
+                        </Typography>
+                      )}
+                      {acceptStatus[index]?.action === "rejected" && (
+                        <Typography variant="body2" color="error">
+                          Rejected
+                        </Typography>
+                      )}
+                      {acceptStatus[index]?.action !== "accepted" && (
+                        <Stack spacing={2} direction="row">
+                          <Button
+                            variant="outlined"
+                            onClick={() => handleAccept(index)}
+                          >
+                            Accept
+                          </Button>
+                          {acceptStatus[index]?.action !== "rejected" && (
+                            <Button
+                              variant="contained"
+                              onClick={() => handleReject(index)}
+                            >
+                              Reject
+                            </Button>
+                          )}
+                        </Stack>
+                      )}
                     </ListItemButton>
-                    <ListItemButton sx={{ color: "white", background: "red" }}>
-                      Reject
-                    </ListItemButton>
-                  </ListItemButton>
-                </ListItem>
+                  </ListItem>
+                ))}
               </List>
             </nav>
             <Divider />
           </Box>
-          {/* <ul>
-            <li>
-              <span>Aditya Dubey</span>
-              <span>2pm pickup</span>
-              <Stack spacing={2} direction="row">
-                <Button variant="outlined">Accept</Button>
-                <Button variant="contained">Reject</Button>
-              </Stack>
-              <Button>Accept</Button>
-              <Button>Reject</Button>
-            </li>
-            <li>
-              <span>Mrutunjay Kinagi</span>
-              <span>3pm pickup</span>
-              <Button>Accept</Button>
-              <Button>Reject</Button>
-            </li>
-          </ul> */}
+
           <Typography variant="h4" component="h2" gutterBottom marginTop={5}>
             Donation History
           </Typography>
@@ -156,8 +225,6 @@ export default function StickyFooter() {
             <Divider />
           </Box>
         </Container>
-        {/* <Sheet>
-        </Sheet> */}
       </Box>
     </ThemeProvider>
   );
