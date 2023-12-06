@@ -46,7 +46,7 @@ function getStepContent(step: number) {
   }
 }
 
-export default function Checkout() {
+export default function Registration Form() {
   const [activeStep, setActiveStep] = React.useState(0);
   const router = useRouter();
 
