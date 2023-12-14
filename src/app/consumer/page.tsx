@@ -132,11 +132,10 @@ export default function StickyFooter() {
         <CssBaseline />
         <Container component="main" sx={{ mt: 8, mb: 2 }}>
           <Typography variant="h2" component="h1" gutterBottom>
-            Shri Vidya Orphanage
+            XYZ
           </Typography>
           <Typography variant="h5" component="h2" gutterBottom>
-            {"Shahu Nagar, Shivaji Circle"}
-            {"Vijayapura, Karnataka, 586101"}
+            {"12 Road, ADS Street, JHI"}
           </Typography>
           <Typography variant="body1">Since: 2014</Typography>
         </Container>
