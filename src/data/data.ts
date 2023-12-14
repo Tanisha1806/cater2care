@@ -10,15 +10,15 @@ export const creds = {
   consumers: [
     {
       id: 1,
-      name: "Shri Vidya Orphanage",
+      name: "KLM",
     },
     {
       id: 2,
-      name: "Shri Vidya Old Age Home",
+      name: "ABC",
     },
     {
       id: 3,
-      name: "Shri Vidya Animal Shelter",
+      name: "XYZ",
     },
   ],
 };
